@@ -21,6 +21,7 @@ def image_upload_url(recipe_id):
     """Return URL for recipe image upload"""
     return reverse('recipe:recipe-upload-image', args=[recipe_id])
 
+
 def detail_url(recipe_id):
     """Return the recipe detail URL"""
     return reverse('recipe:recipe-detail', args=[recipe_id])
@@ -225,7 +226,7 @@ class RecipeImageUploadTests(TestCase):
             img.save(ntf, format='JPEG')
             ntf.seek(0)
             res = self.client.post(url, {'image': ntf}, format='multipart')
-        
+
         self.recipe.refresh_from_db()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIn('image', res.data)
